@@ -17,5 +17,19 @@ namespace book_store.Models
         public int Position { get; set; }
         public DateTime Createdate { get; set; }
 
+        public Category()
+        { }
+
+        public Category(string catid,string catname,string des, string imgurl, bool status, int pos, DateTime createdate)
+        {
+            Categoryid = catid;
+            Categoryname = catname;
+            Description = des;
+            Img = imgurl;
+            Status = status;
+            Position = pos;
+            Createdate = createdate;
+        }
+
     }
 }
