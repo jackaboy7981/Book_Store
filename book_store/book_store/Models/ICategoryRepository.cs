@@ -12,6 +12,6 @@ namespace book_store.Models
         Category GetCategoryById(string id);
         Category AddCategory(Category category);
         int UpdateCategory(string id, Category category);
-        void DeleteCategory(int id);
+        int DeleteCategory(string id);
     }
 }

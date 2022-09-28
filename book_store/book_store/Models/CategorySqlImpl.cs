@@ -36,9 +36,15 @@ namespace book_store.Models
             }
         }
 
-        public void DeleteCategory(int id)
+        public int DeleteCategory(string id)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("DELETE FROM Category WHERE Categoryid = '"+id+"'; ");
+            comm.CommandText = "DELETE FROM Category WHERE Categoryid = '"+id+"'; ";
+            comm.Connection = conn;
+            conn.Open();
+            int row = comm.ExecuteNonQuery();
+            conn.Close();
+            return row;
         }
 
         public List<Category> GetAllCategories()
@@ -87,7 +93,8 @@ namespace book_store.Models
 
         public int UpdateCategory(string id, Category category)
         {
-            comm.CommandText = "UPDATE employees SET Categoryid = '"+category.Categoryid+"', Categoryname = '"+category.Categoryname+"', Description = '"+category.Description+"', Img = '"+category.Img+"', Status = "+category.Status+", Position = "+category.Position+",  WHERE Categoryid = '"+category.Categoryid+"'; ";
+            Debug.WriteLine("UPDATE Category SET Categoryid = '"+category.Categoryid+"', Categoryname = '"+category.Categoryname+"', Description = '"+category.Description+"', Img = '"+category.Img+"', Status = "+category.Status+", Position = "+category.Position+" WHERE Categoryid = '"+id+"'; ");
+            comm.CommandText = "UPDATE Category SET Categoryid = '"+category.Categoryid+"', Categoryname = '"+category.Categoryname+"', Description = '"+category.Description+"', Img = '"+category.Img+"', Status = '"+category.Status+"', Position = "+category.Position+"  WHERE Categoryid = '"+id+"'; ";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();

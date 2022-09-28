@@ -50,9 +50,11 @@ namespace book_store.Controllers
         }
 
         // DELETE api/values/5
-        public void Delete(string id)
+        public IHttpActionResult Delete(string id)
         {
-            
+            var data = repository.DeleteCategory(id);
+
+            return Ok(data);
         }
     }
 }
