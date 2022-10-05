@@ -30,9 +30,16 @@ namespace book_store.Controllers
             user.PasswordSalt = passwordSalt;
             user.Status = true;
             user.Isadmin = false;
-            repository.AddUser(user);
-
-            return Ok(user);
+            User returnuser = repository.AddUser(user);
+            if (returnuser != null)
+            {
+                return Ok(user);
+            }
+            else 
+            {
+                string data = null;
+                return Ok(data);
+            }
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

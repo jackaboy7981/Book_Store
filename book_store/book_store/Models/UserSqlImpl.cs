@@ -20,20 +20,44 @@ namespace book_store.Models
         }
 
         public User AddUser(User user)
-        { 
-            comm.CommandText = "insert into User_ (Name, Email, PasswordHash, PasswordSalt, Status, Isadmin) values ('" + user.Name + "', '" + user.Email + "',  CONVERT(VARBINARY(MAX), '" + user.PasswordHash + "'),  CONVERT(VARBINARY(MAX), '" + user.PasswordSalt + "'), '" + user.Status + "', '" + user.Isadmin + "')";
+        {
+            User testuser = GetUserByid(user.Email);
+            if( testuser == null)
+            {
+            comm.CommandText = "insert into User_ (Name, Email, PasswordHash, PasswordSalt, Status, Isadmin) values ('" + user.Name + "', '" + user.Email + "',  @Hash,  @Salt, '" + user.Status + "', '" + user.Isadmin + "')";
             comm.Connection = conn;
+            comm.Parameters.AddWithValue("@Hash", user.PasswordHash);
+            comm.Parameters.AddWithValue("@Salt", user.PasswordSalt);
             conn.Open();
             int row = comm.ExecuteNonQuery();
             conn.Close();
-            if (row > 0)
+            return user;
+            }
+            return null;
+
+        }
+
+        public User GetUserByid(string id)
+        {
+            comm.CommandText = "select * from User_ where Email ='" + id + "'";
+            comm.Connection = conn;
+            conn.Open();
+            SqlDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
             {
+                string name = reader["Name"].ToString();
+                string email = reader["Email"].ToString();
+                byte[] passwordHash = (byte[])reader["PasswordHash"];
+                byte[] passwordSalt = (byte[])reader["PasswordSalt"];
+                bool status = Convert.ToBoolean(reader["Status"]);
+                bool isadmin = Convert.ToBoolean(reader["Isadmin"]);
+                Debug.WriteLine("\nPasswordhash = " + passwordHash + "\npasswordsalt =" + passwordSalt+"\n");
+                User user= new User(name, email, passwordHash, passwordSalt, status, isadmin);
                 return user;
             }
-            else
-            {
-                return null;
-            }
+            conn.Close();
+            return null;
         }
+
     }
 }
