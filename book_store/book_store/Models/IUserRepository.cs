@@ -11,7 +11,8 @@ namespace book_store.Models
         //List<User> GetAllUsers();
         User GetUserByid(string id);
         User AddUser(User user);
-        //int UpdateUser(string id, User user);
+        int UpdateUserStatus(User user);
+        int UpdateShippingAddress(User user);
         //int DeleteUser(string id);
     }
 }

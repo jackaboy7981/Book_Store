@@ -24,17 +24,8 @@ namespace book_store.Controllers
             repository = new UserSqlImpl();
         }
 
-        [HttpGet]
-        public IHttpActionResult Get()
-        {
-            Debug.WriteLine("\nInside get \n");
-            User user = repository.GetUserByid("jacobabraham12@gmail.com");
-            return Ok(user);
-        }
-        
-
         [HttpPost]
-        public IHttpActionResult Post(UserDTO request)
+        public IHttpActionResult Login(UserDTO request)
         {
             User user = repository.GetUserByid(request.Email);
             if (user == null || user.Email != request.Email)

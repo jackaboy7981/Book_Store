@@ -18,14 +18,14 @@ namespace book_store.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Get()
+        public IHttpActionResult Getallbooks()
         {
             var data = repository.GetAllBooks();
             return Ok(data);
         }
 
         [HttpGet]
-        public IHttpActionResult Get(string id)
+        public IHttpActionResult Getbookbyid(string id)
         {
             var data = repository.GetBookById(id);
             if (data == null)
@@ -34,14 +34,14 @@ namespace book_store.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(Book book)
+        public IHttpActionResult Addnewbook(Book book)
         {
             var data = repository.AddBook(book);
             return Ok(data);
         }
 
         // PUT api/values/5
-        public IHttpActionResult Put(string id, [FromBody] Book book)
+        public IHttpActionResult Updatebookdetails(string id, [FromBody] Book book)
         {
             var data = repository.UpdateBook(id, book);
 
@@ -49,7 +49,7 @@ namespace book_store.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult Delete(string id)
+        public IHttpActionResult Deletebook(string id)
         {
             var data = repository.DeleteBook(id);
 

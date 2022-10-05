@@ -20,7 +20,7 @@ namespace book_store.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(UserDTO request) 
+        public IHttpActionResult Register(UserDTO request) 
         {
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
             //User user = new User();

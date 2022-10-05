@@ -18,15 +18,15 @@ namespace book_store.Controllers
             repository = new CategorySqlImpl();
         }
 
-        [HttpGet,Authorize(Roles = "True")]
-        public IHttpActionResult Get()
+        [HttpGet,Authorize]
+        public IHttpActionResult Getallcategories()
         {
             var data = repository.GetAllCategories();
             return Ok(data);
         }
 
         [HttpGet]
-        public IHttpActionResult Get(string id)
+        public IHttpActionResult Getcategorybyid(string id)
         {
             var data = repository.GetCategoryById(id);
             if (data == null)
@@ -35,14 +35,14 @@ namespace book_store.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(Category category)
+        public IHttpActionResult Addnewcategory(Category category)
         {
             var data = repository.AddCategory(category);
             return Ok(data);
         }
 
         // PUT api/values/5
-        public IHttpActionResult Put(string id, [FromBody] Category category)
+        public IHttpActionResult Updatecategory(string id, [FromBody] Category category)
         {
             var data = repository.UpdateCategory(id, category);
             
@@ -50,7 +50,7 @@ namespace book_store.Controllers
         }
 
         // DELETE api/values/5
-        public IHttpActionResult Delete(string id)
+        public IHttpActionResult Deletecategory(string id)
         {
             var data = repository.DeleteCategory(id);
 
