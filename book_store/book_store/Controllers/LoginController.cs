@@ -52,10 +52,9 @@ namespace book_store.Controllers
 
         private string Createtoken(User user)
         {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, user.Email)
-            };
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Email as String, user.Email as String));
+            claims.Add(new Claim(ClaimTypes.Role as String, user.Isadmin.ToString() as string));
             //Debug.WriteLine("\nappsetting token :" + ConfigurationManager.AppSettings["token"] + "\n");
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(ConfigurationManager.AppSettings["token"]));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -76,7 +75,7 @@ namespace book_store.Controllers
             using (var hmac = new HMACSHA512(passwordSalt))
             {
                 var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                Debug.WriteLine("PasswordHash = "+ passwordHash+"\n, ComputeHash = "+computeHash+"\n");
+                //Debug.WriteLine("PasswordHash = "+ passwordHash+"\n, ComputeHash = "+computeHash+"\n");
                 return computeHash.SequenceEqual(passwordHash);
             }
 

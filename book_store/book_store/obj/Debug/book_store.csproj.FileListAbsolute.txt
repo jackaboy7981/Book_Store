@@ -215,3 +215,7 @@ C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Text
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Text.Json.xml
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Threading.Tasks.Extensions.xml
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.ValueTuple.xml
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Security.Jwt.dll
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Security.Jwt.xml

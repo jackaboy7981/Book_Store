@@ -18,7 +18,7 @@ namespace book_store.Controllers
             repository = new CategorySqlImpl();
         }
 
-        [HttpGet]
+        [HttpGet,Authorize(Roles = "True")]
         public IHttpActionResult Get()
         {
             var data = repository.GetAllCategories();
