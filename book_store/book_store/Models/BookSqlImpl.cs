@@ -21,7 +21,8 @@ namespace book_store.Models
 
         public Book AddBook(Book book)
         {
-            comm.CommandText = "insert into Book (Bookid, Categoryid, Title, ISBN, Year, Price, Description, Position, Status, Img, Isfeatured) values ('" + book.Bookid + "', '" + book.Categoryid + "', '" + book.Title + "', '" + book.ISBN + "', '" + book.Year + "', " + book.Price + ", '" + book.Description + "', " + book.Position + ", " + book.Status + ", '" + book.Img + "', " + book.Isfeatured + ")";
+            Debug.WriteLine("insert into Book (Bookid, Categoryid, Title, Author, ISBN, Year, Price, Description, Position, Status, Img, Isfeatured) values ('" + book.Bookid + "', '" + book.Categoryid + "', '" + book.Title + "', '" + book.Author + "', '" + book.ISBN + "', '" + book.Year + "', " + book.Price + ", '" + book.Description + "', " + book.Position + ", " + book.Status + ", '" + book.Img + "', " + book.Isfeatured + ")");
+            comm.CommandText = "insert into Book (Bookid, Categoryid, Title, Author, ISBN, Year, Price, Description, Position, Status, Img, Isfeatured) values ('" + book.Bookid + "', '" + book.Categoryid + "', '" + book.Title + "', '" + book.Author + "', '" + book.ISBN + "', '" + book.Year + "', " + book.Price + ", '" + book.Description + "', " + book.Position + ", '" + book.Status + "', '" + book.Img + "', '" + book.Isfeatured + "')";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();
@@ -59,6 +60,7 @@ namespace book_store.Models
                 string bid = reader["Bookid"].ToString();
                 string cid = reader["Categoryid"].ToString();
                 string title = reader["Title"].ToString();
+                string author = reader["Author"].ToString();
                 string isbn = reader["ISBN"].ToString();
                 int year = Convert.ToInt32(reader["Year"]);
                 float price = Convert.ToSingle(reader["Price"]);
@@ -68,7 +70,35 @@ namespace book_store.Models
                 string img = reader["Img"].ToString();
                 bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
                 DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
-                list.Add(new Book(bid, cid, title, isbn, year, price, des, pos, status, img, isfeat, createdate));
+                list.Add(new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate));
+            }
+            conn.Close();
+            return list;
+        }
+
+        public List<Book> GetBooksbyCategory(string catid)
+        {
+            List<Book> list = new List<Book>();
+            comm.CommandText = "select * from Book WHERE Categoryid = '"+catid+"'";
+            comm.Connection = conn;
+            conn.Open();
+            SqlDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string bid = reader["Bookid"].ToString();
+                string cid = reader["Categoryid"].ToString();
+                string title = reader["Title"].ToString();
+                string author = reader["Author"].ToString();
+                string isbn = reader["ISBN"].ToString();
+                int year = Convert.ToInt32(reader["Year"]);
+                float price = Convert.ToSingle(reader["Price"]);
+                string des = reader["Description"].ToString();
+                int pos = Convert.ToInt32(reader["Position"]);
+                bool status = Convert.ToBoolean(reader["Status"]);
+                string img = reader["Img"].ToString();
+                bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
+                DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
+                list.Add(new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate));
             }
             conn.Close();
             return list;
@@ -85,6 +115,7 @@ namespace book_store.Models
                 string bid = reader["Bookid"].ToString();
                 string cid = reader["Categoryid"].ToString();
                 string title = reader["Title"].ToString();
+                string author = reader["Author"].ToString();
                 string isbn = reader["ISBN"].ToString();
                 int year = Convert.ToInt32(reader["Year"]);
                 float price = Convert.ToSingle(reader["Price"]);
@@ -94,7 +125,7 @@ namespace book_store.Models
                 string img = reader["Img"].ToString();
                 bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
                 DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
-                Book book = new Book(bid, cid, title, isbn, year, price, des, pos, status, img, isfeat, createdate);
+                Book book = new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate);
                 return book;
             }
             conn.Close();
@@ -104,7 +135,7 @@ namespace book_store.Models
         public int UpdateBook(string id, Book book)
         {
             Debug.WriteLine("UPDATE Book SET Bookid = '" + book.Bookid + "',Categoryid = '" + book.Categoryid + "', Title = '" + book.Title + "', ISBN = '" + book.ISBN + "', Year = '" + book.Year + "', Price = '" + book.Price + "', Description = '" + book.Description + "', Position = " + book.Position + ", Status = " + book.Status + "Img = '" + book.Img + "',Isfeatured = " + book.Isfeatured + ", Createdate = '" + book.Createdate + "'  WHERE Categoryid = '" + id + "'; ");
-            comm.CommandText = "UPDATE Book SET Bookid = '"+ book.Bookid +"',Categoryid = '" + book.Categoryid + "', Title = '" + book.Title + "', ISBN = '" + book.ISBN + "', Year = '" + book.Year + "', Price = '" + book.Price + "', Description = '" + book.Description + "', Position = " + book.Position + ", Status = " + book.Status + "Img = '" + book.Img + "',Isfeatured = " + book.Isfeatured + ", Createdate = '" + book.Createdate + "'  WHERE Categoryid = '" + id + "'; ";
+            comm.CommandText = "UPDATE Book SET Bookid = '"+ book.Bookid +"',Categoryid = '" + book.Categoryid + "', Title = '" + book.Title + "', Author = '" + book.Author + "', ISBN = '" + book.ISBN + "', Year = '" + book.Year + "', Price = '" + book.Price + "', Description = '" + book.Description + "', Position = " + book.Position + ", Status = " + book.Status + "Img = '" + book.Img + "',Isfeatured = " + book.Isfeatured + ", Createdate = '" + book.Createdate + "'  WHERE Categoryid = '" + id + "'; ";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();

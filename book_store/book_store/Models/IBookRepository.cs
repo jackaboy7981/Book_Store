@@ -13,6 +13,8 @@ namespace book_store.Models
         Book AddBook(Book book);
         int UpdateBook(string id, Book book);
         int DeleteBook(string id);
-    
+        List<Book> GetBooksbyCategory(string catid);
+
+
     }
 }

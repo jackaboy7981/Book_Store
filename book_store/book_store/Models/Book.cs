@@ -18,6 +18,7 @@ namespace book_store.Models
         public virtual Category Category { get; set; }
         [Required]
         public string Title { get; set; }
+        public string Author { get; set; }
         public string ISBN { get; set; }
         public int Year { get; set; }
         public float Price { get; set; }
@@ -33,11 +34,12 @@ namespace book_store.Models
         public Book()
         { }
 
-        public Book(string bookid, string catid, string title, string isbn,int year, float price, string des, int pos, bool status, string imgurl, bool isfeat, DateTime createdate)
+        public Book(string bookid, string catid, string title, string author, string isbn,int year, float price, string des, int pos, bool status, string imgurl, bool isfeat, DateTime createdate)
         {
             Bookid = bookid; 
             Categoryid = catid;
             Title = title;
+            Author = author;
             ISBN = isbn;
             Year = year;
             Price = price;
