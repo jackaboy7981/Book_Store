@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 
 namespace book_store.Models
 {
@@ -19,6 +20,7 @@ namespace book_store.Models
             comm = new SqlCommand();
         }
 
+        [HttpPost]
         public Book AddBook(Book book)
         {
             Debug.WriteLine("insert into Book (Bookid, Categoryid, Title, Author, ISBN, Year, Price, Description, Position, Status, Img, Isfeatured) values ('" + book.Bookid + "', '" + book.Categoryid + "', '" + book.Title + "', '" + book.Author + "', '" + book.ISBN + "', '" + book.Year + "', " + book.Price + ", '" + book.Description + "', " + book.Position + ", " + book.Status + ", '" + book.Img + "', " + book.Isfeatured + ")");
@@ -126,6 +128,7 @@ namespace book_store.Models
                 bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
                 DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
                 Book book = new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate);
+                conn.Close();
                 return book;
             }
             conn.Close();

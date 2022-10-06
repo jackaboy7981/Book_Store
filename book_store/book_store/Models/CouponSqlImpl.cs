@@ -75,6 +75,7 @@ namespace book_store.Models
                 string couponcode = reader["Couponcode"].ToString();
                 int discountpercentage = Convert.ToInt32(reader["Discountpercentage"]);
                 Coupon cop = new Coupon(couponcode, discountpercentage);
+                conn.Close();
                 return cop;
             }
             conn.Close();

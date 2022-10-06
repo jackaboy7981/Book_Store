@@ -59,6 +59,8 @@ namespace book_store.Models
 
                 //Debug.WriteLine("\nPasswordhash = " + passwordHash + "\npasswordsalt =" + passwordSalt+"\n");
                 User user= new User(name, email, passwordHash, passwordSalt, status, isadmin, shippingaddress1, shippingaddress2, shippingaddress3);
+                conn.Close();
+
                 return user;
             }
             conn.Close();

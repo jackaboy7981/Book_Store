@@ -85,6 +85,8 @@ namespace book_store.Models
                 int pos = Convert.ToInt32(reader["Position"]);
                 DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
                 Category cat = new Category(cid, catname, des, imgurl, status, pos, createdate);
+                conn.Close();
+
                 return cat;
             }
             conn.Close();
