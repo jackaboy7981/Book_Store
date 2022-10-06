@@ -17,7 +17,7 @@ namespace book_store.Controllers
             repository = new CartSqlImpl();
         }
 
-        [HttpGet, Authorize]
+        [HttpGet, Authorize(Roles = "True")]
         public IHttpActionResult Getallcarts()
         {
             var data = repository.GetAllCarts();

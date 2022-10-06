@@ -9,7 +9,7 @@ namespace book_store.Models
     public class Cart
     {
         [Key][Required]
-        public string Userid { get; set; }
+        public string Email { get; set; }
         public string Bookid1 { get; set; }
         public int Qty1 { get; set; }
         public string Bookid2 { get; set; }
@@ -23,9 +23,9 @@ namespace book_store.Models
 
         public Cart() { }
 
-        public Cart(string uid,string bookid1,int qty1,string bookid2,int qty2,string bookid3,int qty3,string bookid4,int qty4,string bookid5,int qty5)
+        public Cart(string email,string bookid1,int qty1,string bookid2,int qty2,string bookid3,int qty3,string bookid4,int qty4,string bookid5,int qty5)
         {
-            Userid = uid;
+            Email = email;
             Bookid1 = bookid1;
             Qty1 = qty1;
             Bookid2 = bookid2;
