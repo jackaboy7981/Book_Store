@@ -10,7 +10,7 @@ namespace book_store.Models
     {
         List<Cart> GetAllCarts();
         Cart GetCartById(string id);
-        Cart AddCart(Cart Cart);
+        Cart AddCart(Cart cart);
         int UpdateCart(string id, Cart cart);
         int DeleteCart(string id);
     }

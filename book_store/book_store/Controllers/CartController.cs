@@ -41,7 +41,7 @@ namespace book_store.Controllers
         }
 
         // PUT api/values/5
-        public IHttpActionResult Updatecategory(string id, [FromBody] Cart cart)
+        public IHttpActionResult UpdateWishlist(string id, [FromBody] Cart cart)
         {
             var data = repository.UpdateCart(id, cart);
 

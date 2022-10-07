@@ -21,12 +21,14 @@ namespace book_store.Models
 
         public Cart AddCart(Cart cart)
         {
+            int count = 0;
             if (cart.Bookid1 == null)
             {
                 cart.Bookid1 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid1 = "'" + cart.Bookid1 + "'";
             }
             if (cart.Bookid2 == null)
@@ -35,6 +37,7 @@ namespace book_store.Models
             }
             else
             {
+                count++;
                 cart.Bookid2 = "'" + cart.Bookid2 + "'";
             }
             if (cart.Bookid3 == null)
@@ -43,6 +46,7 @@ namespace book_store.Models
             }
             else
             {
+                count++;
                 cart.Bookid3 = "'" + cart.Bookid3 + "'";
             }
             if (cart.Bookid4 == null)
@@ -51,6 +55,7 @@ namespace book_store.Models
             }
             else
             {
+                count++;
                 cart.Bookid4 = "'" + cart.Bookid4 + "'";
             }
             if (cart.Bookid5 == null)
@@ -59,10 +64,11 @@ namespace book_store.Models
             }
             else
             {
+                count++;
                 cart.Bookid5 = "'" + cart.Bookid5 + "'";
             }
-            Debug.WriteLine("insert into Cart(Email, Bookid1, Qty1, Bookid2, Qty2, Bookid3, Qty3, Bookid4, Qty4, Bookid5, Qty5) values('" + cart.Email + "', " + cart.Bookid1 + ", " + cart.Qty1 + ", " + cart.Bookid2 + ", " + cart.Qty2 + ", " + cart.Bookid3 + ", " + cart.Qty3 + ", " + cart.Bookid4 + ", " + cart.Qty4 + ", " + cart.Bookid5 + ", " + cart.Qty5 + ")");
-            comm.CommandText = "insert into Cart (Email, Bookid1, Qty1, Bookid2, Qty2, Bookid3, Qty3, Bookid4, Qty4, Bookid5, Qty5) values ('" + cart.Email + "', " + cart.Bookid1 + ", " + cart.Qty1 + ", " + cart.Bookid2 + ", " + cart.Qty2 + ", " + cart.Bookid3 + ", " + cart.Qty3 + ", " + cart.Bookid4 + ", " + cart.Qty4 + ", " + cart.Bookid5 + ", " + cart.Qty5 + ")";
+            Debug.WriteLine("insert into Cart (Email, Itemsincart, Bookid1, Qty1, Bookid2, Qty2, Bookid3, Qty3, Bookid4, Qty4, Bookid5, Qty5) values ('" + cart.Email + "', " + count + ", " + cart.Bookid1 + ", " + cart.Qty1 + ", " + cart.Bookid2 + ", " + cart.Qty2 + ", " + cart.Bookid3 + ", " + cart.Qty3 + ", " + cart.Bookid4 + ", " + cart.Qty4 + ", " + cart.Bookid5 + ", " + cart.Qty5 + ")");
+            comm.CommandText = "insert into Cart (Email, Itemsincart, Bookid1, Qty1, Bookid2, Qty2, Bookid3, Qty3, Bookid4, Qty4, Bookid5, Qty5) values ('" + cart.Email + "', " + count + ", " + cart.Bookid1 + ", " + cart.Qty1 + ", " + cart.Bookid2 + ", " + cart.Qty2 + ", " + cart.Bookid3 + ", " + cart.Qty3 + ", " + cart.Bookid4 + ", " + cart.Qty4 + ", " + cart.Bookid5 + ", " + cart.Qty5 + ")";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();
@@ -79,8 +85,8 @@ namespace book_store.Models
 
         public int DeleteCart(string id)
         {
-            Debug.WriteLine("DELETE FROM Cart WHERE Userid = '" + id + "'; ");
-            comm.CommandText = "DELETE FROM Cart WHERE Userid = '" + id + "'; ";
+            Debug.WriteLine("DELETE FROM Cart WHERE Email = '" + id + "'; ");
+            comm.CommandText = "DELETE FROM Cart WHERE Email = '" + id + "'; ";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();
@@ -98,6 +104,7 @@ namespace book_store.Models
             while (reader.Read())
             {
                 string email = reader["Email"].ToString();
+                int itemsincart = Convert.ToInt32(reader["Itemsincart"]);
                 string bookid1 = reader["Bookid1"].ToString();
                 int qty1 = Convert.ToInt32(reader["Qty1"]);
                 string bookid2 = reader["Bookid2"].ToString();
@@ -108,7 +115,7 @@ namespace book_store.Models
                 int qty4 = Convert.ToInt32(reader["Qty4"]);
                 string bookid5 = reader["Bookid5"].ToString();
                 int qty5 = Convert.ToInt32(reader["Qty5"]);
-                list.Add(new Cart(email, bookid1, qty1, bookid2, qty2, bookid3, qty3, bookid4, qty4, bookid5, qty5));
+                list.Add(new Cart(email, itemsincart, bookid1, qty1, bookid2, qty2, bookid3, qty3, bookid4, qty4, bookid5, qty5));
             }
             conn.Close();
             return list;
@@ -123,6 +130,7 @@ namespace book_store.Models
             while (reader.Read())
             {
                 string email = reader["Email"].ToString();
+                int itemsincart = Convert.ToInt32(reader["Itemsincart"]);
                 string bookid1 = reader["Bookid1"].ToString();
                 int qty1 = Convert.ToInt32(reader["Qty1"]);
                 string bookid2 = reader["Bookid2"].ToString();
@@ -133,7 +141,7 @@ namespace book_store.Models
                 int qty4 = Convert.ToInt32(reader["Qty4"]);
                 string bookid5 = reader["Bookid5"].ToString();
                 int qty5 = Convert.ToInt32(reader["Qty5"]);
-                Cart cart = new Cart(email, bookid1, qty1, bookid2, qty2, bookid3, qty3, bookid4, qty4, bookid5, qty5);
+                Cart cart = new Cart(email, itemsincart, bookid1, qty1, bookid2, qty2, bookid3, qty3, bookid4, qty4, bookid5, qty5);
                 conn.Close();
                 return cart;
             }
@@ -143,48 +151,54 @@ namespace book_store.Models
 
         public int UpdateCart(string id, Cart cart)
         {
-            if (cart.Bookid1 == null)
+            int count = 0;
+            if (cart.Bookid1 == null || cart.Bookid1 == "")
             {
                 cart.Bookid1 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid1 = "'" + cart.Bookid1 + "'";
             }
-            if (cart.Bookid2 == null)
+            if (cart.Bookid2 == null || cart.Bookid2 == "")
             {
                 cart.Bookid2 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid2 = "'" + cart.Bookid2 + "'";
             }
-            if (cart.Bookid3 == null)
+            if (cart.Bookid3 == null || cart.Bookid3 == "")
             {
                 cart.Bookid3 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid3 = "'" + cart.Bookid3 + "'";
             }
-            if (cart.Bookid4 == null)
+            if (cart.Bookid4 == null || cart.Bookid4 == "")
             {
                 cart.Bookid4 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid4 = "'" + cart.Bookid4 + "'";
             }
-            if (cart.Bookid5 == null)
+            if (cart.Bookid5 == null || cart.Bookid5 == "")
             {
                 cart.Bookid5 = "NULL";
             }
             else
             {
+                count++;
                 cart.Bookid5 = "'" + cart.Bookid5 + "'";
             }
-            //Debug.WriteLine("UPDATE Category SET Categoryid = '" + category.Categoryid + "', Categoryname = '" + category.Categoryname + "', Description = '" + category.Description + "', Img = '" + category.Img + "', Status = " + category.Status + ", Position = " + category.Position + " WHERE Categoryid = '" + id + "'; ");
-            comm.CommandText = "UPDATE Cart SET Bookid1 = " + cart.Bookid1 + ", Qty1 = '" + cart.Qty1 + ", Bookid2 = " + cart.Bookid2 + ", Qty2 = " + cart.Qty2 + ", Bookid3 = " + cart.Bookid3 + ", Qty3 = " + cart.Qty3 + ", Bookid4 = " + cart.Bookid4 + ", Qty4 = " + cart.Qty4 + ", Bookid5 = " + cart.Bookid5 + ", Qty5 = " + cart.Qty5 + "  WHERE Email = '" + id + "'; ";
+            Debug.WriteLine("UPDATE Cart SET Itemsincart = "+count+", Bookid1 = " + cart.Bookid1 + ", Qty1 = " + cart.Qty1 + ", Bookid2 = " + cart.Bookid2 + ", Qty2 = " + cart.Qty2 + ", Bookid3 = " + cart.Bookid3 + ", Qty3 = " + cart.Qty3 + ", Bookid4 = " + cart.Bookid4 + ", Qty4 = " + cart.Qty4 + ", Bookid5 = " + cart.Bookid5 + ", Qty5 = " + cart.Qty5 + "  WHERE Email = '" + id + "'; ");
+            comm.CommandText = "UPDATE Cart SET Itemsincart = "+count+", Bookid1 = " + cart.Bookid1 + ", Qty1 = " + cart.Qty1 + ", Bookid2 = " + cart.Bookid2 + ", Qty2 = " + cart.Qty2 + ", Bookid3 = " + cart.Bookid3 + ", Qty3 = " + cart.Qty3 + ", Bookid4 = " + cart.Bookid4 + ", Qty4 = " + cart.Qty4 + ", Bookid5 = " + cart.Bookid5 + ", Qty5 = " + cart.Qty5 + "  WHERE Email = '" + id + "'; ";
             comm.Connection = conn;
             conn.Open();
             int row = comm.ExecuteNonQuery();

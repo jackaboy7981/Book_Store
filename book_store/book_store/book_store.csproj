@@ -242,6 +242,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WishlistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,9 +259,12 @@
     <Compile Include="Models\ICouponRepository.cs" />
     <Compile Include="Models\ICartRepository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\IWishlistRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\UserSqlImpl.cs" />
+    <Compile Include="Models\Wishlist.cs" />
+    <Compile Include="Models\WishlistSqlImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup1.cs" />
   </ItemGroup>
