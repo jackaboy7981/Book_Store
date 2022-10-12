@@ -219,3 +219,6 @@ C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.O
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Security.Jwt.dll
 C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\Microsoft.Owin.Security.Jwt.xml
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Web.Cors.dll
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Web.Http.Cors.dll
+C:\Users\jaabraham\source\repos\Book_Store\book_store\book_store\bin\System.Web.Http.Cors.xml

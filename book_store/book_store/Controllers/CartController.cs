@@ -33,12 +33,6 @@ namespace book_store.Controllers
             return Ok(data);
         }
 
-        [HttpPost]
-        public IHttpActionResult Addnewcart(Cart cart)
-        {
-            var data = repository.AddCart(cart);
-            return Ok(data);
-        }
 
         // PUT api/values/5
         public IHttpActionResult UpdateWishlist(string id, [FromBody] Cart cart)

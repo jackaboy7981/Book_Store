@@ -1,13 +1,16 @@
 ﻿using book_store.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace book_store.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers:"*", methods:"*")]
     public class CategoryController : ApiController
     {
 
@@ -18,10 +21,11 @@ namespace book_store.Controllers
             repository = new CategorySqlImpl();
         }
 
-        [HttpGet,Authorize]
+        [HttpGet]
         public IHttpActionResult Getallcategories()
         {
-            var data = repository.GetAllCategories();
+            List<Category> data = repository.GetAllCategories();
+            Debug.WriteLine("\ndata1  = ",data[0].Categoryname,"\n");
             return Ok(data);
         }
 

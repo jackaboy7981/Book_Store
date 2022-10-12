@@ -78,6 +78,62 @@ namespace book_store.Models
             return list;
         }
 
+        public List<Book> GetBooksNewArrival()
+        {
+            List<Book> list = new List<Book>();
+            comm.CommandText = "select * from Book ORDER BY Createdate DESC";
+            comm.Connection = conn;
+            conn.Open();
+            SqlDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string bid = reader["Bookid"].ToString();
+                string cid = reader["Categoryid"].ToString();
+                string title = reader["Title"].ToString();
+                string author = reader["Author"].ToString();
+                string isbn = reader["ISBN"].ToString();
+                int year = Convert.ToInt32(reader["Year"]);
+                float price = Convert.ToSingle(reader["Price"]);
+                string des = reader["Description"].ToString();
+                int pos = Convert.ToInt32(reader["Position"]);
+                bool status = Convert.ToBoolean(reader["Status"]);
+                string img = reader["Img"].ToString();
+                bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
+                DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
+                list.Add(new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate));
+            }
+            conn.Close();
+            return list;
+        }
+
+        public List<Book> GetBooksFeatured()
+        {
+            List<Book> list = new List<Book>();
+            comm.CommandText = "select * from Book WHERE Isfeatured = 'true'";
+            comm.Connection = conn;
+            conn.Open();
+            SqlDataReader reader = comm.ExecuteReader();
+            while (reader.Read())
+            {
+                string bid = reader["Bookid"].ToString();
+                string cid = reader["Categoryid"].ToString();
+                string title = reader["Title"].ToString();
+                string author = reader["Author"].ToString();
+                string isbn = reader["ISBN"].ToString();
+                int year = Convert.ToInt32(reader["Year"]);
+                float price = Convert.ToSingle(reader["Price"]);
+                string des = reader["Description"].ToString();
+                int pos = Convert.ToInt32(reader["Position"]);
+                bool status = Convert.ToBoolean(reader["Status"]);
+                string img = reader["Img"].ToString();
+                bool isfeat = Convert.ToBoolean(reader["Isfeatured"]);
+                DateTime createdate = Convert.ToDateTime(reader["Createdate"]);
+                list.Add(new Book(bid, cid, title, author, isbn, year, price, des, pos, status, img, isfeat, createdate));
+            }
+            conn.Close();
+            return list;
+        }
+
         public List<Book> GetBooksbyCategory(string catid)
         {
             List<Book> list = new List<Book>();

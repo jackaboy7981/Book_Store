@@ -21,6 +21,7 @@ namespace book_store.Models
 
         public Category AddCategory(Category category)
         {
+            Debug.WriteLine("insert into Category (Categoryid, Categoryname, Description, Img, Status, Position) values ('" + category.Categoryid + "', '" + category.Categoryname + "', '" + category.Description + "', '" + category.Img + "', '" + category.Status + "', '" + category.Position + "')");
             comm.CommandText = "insert into Category (Categoryid, Categoryname, Description, Img, Status, Position) values ('" + category.Categoryid + "', '" + category.Categoryname + "', '" + category.Description + "', '" + category.Img + "', '" + category.Status + "', '" + category.Position + "')";
             comm.Connection = conn;
             conn.Open();
@@ -66,6 +67,7 @@ namespace book_store.Models
                 list.Add(new Category(cid, catname, des, imgurl, status, pos, createdate));
             }
             conn.Close();
+            Debug.WriteLine("\n sqlimpl data = "+list.Count +"\n"+list[0].Categoryname+"\n");
             return list;
         }
 

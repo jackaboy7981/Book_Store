@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace book_store.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class BookController : ApiController
     {
         private IBookRepository bookrepository;
@@ -20,13 +22,24 @@ namespace book_store.Controllers
             categoryrepository = new CategorySqlImpl();
         }
 
-        [HttpGet]
-        public IHttpActionResult Getallbooks()
+        public IHttpActionResult GetAllBooks()
         {
-            var data = bookrepository.GetAllBooks();
+            var data = bookrepository.GetBooksNewArrival();
             return Ok(data);
         }
-        
+
+        public IHttpActionResult Getbooksnewarrival()
+        {
+            var data = bookrepository.GetBooksNewArrival();
+            return Ok(data);
+        }
+
+        public IHttpActionResult Getbooksfeatured()
+        {
+            var data = bookrepository.GetBooksFeatured();
+            return Ok(data);
+        }
+
         [HttpGet]
         public IHttpActionResult Getsearch(string id)
         {

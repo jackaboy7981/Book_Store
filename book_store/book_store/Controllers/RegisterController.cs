@@ -13,10 +13,14 @@ namespace book_store.Controllers
     {
         public static User user = new User();
         private IUserRepository repository;
+        private ICartRepository repositoryCart;
+        private IWishlistRepository repositoryWishlist;
 
         public RegisterController()
         {
             repository = new UserSqlImpl();
+            repositoryCart = new CartSqlImpl();
+            repositoryWishlist = new WishlistSqlImpl();
         }
 
         [HttpPost]
@@ -33,6 +37,11 @@ namespace book_store.Controllers
             User returnuser = repository.AddUser(user);
             if (returnuser != null)
             {
+                Cart cart = new Cart(user.Email,0,null, 0, null, 0, null, 0, null, 0, null, 0);
+                var datac = repositoryCart.AddCart(cart);
+                Wishlist wishlist = new Wishlist(user.Email, 0, null, null, null,  null, null);
+                var dataw = repositoryWishlist.AddWishlist(wishlist);
+
                 return Ok(user);
             }
             else 
